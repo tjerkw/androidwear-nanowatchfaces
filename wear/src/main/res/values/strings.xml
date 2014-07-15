@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">NanoClockwork</string>
+    <string name="clockwork">Nano Flow</string>
+    <string name="clockwork_gradient">Nano Glow</string>
+    <string name="clockwork_digital_wheels">Nano Digital</string>
+
+</resources>
