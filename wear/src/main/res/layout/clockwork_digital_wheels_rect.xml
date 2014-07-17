@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tjerkw="http://tjerkw.com/wear"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <com.tjerkw.wear.nanoclockwork.DigitalWheelsClockwork
         android:id="@+id/clockwork"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        tjerkw:foreground_color="0xFFFFFFFF"
+        tjerkw:background_color="0x22FFFFFF"
+        tjerkw:font="fonts/highland_gothic_medium.ttf"/>
 </LinearLayout>

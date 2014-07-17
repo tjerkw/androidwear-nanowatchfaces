@@ -3,7 +3,6 @@ package  com.tjerkw.wear.nanoclockwork;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.CornerPathEffect;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
@@ -13,16 +12,16 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 class ClockworkView extends AbstractClockworkView {
-    private static Paint BACKGROUND_PAINT = new Paint();
-    private static Paint TICK_PAINT = new Paint();
-    private static Paint TICK_SECONDS_PAINT = new Paint();
-    private static Paint HOUR_PAINT = new Paint();
-    private static Paint MINUTE_PAINT = new Paint();
-    private static Paint SECOND_PAINT = new Paint();
-    private static Paint HOUR_TICK_PAINT = new Paint();
-    private static Paint INNER_CIRCLE_PAINT = new Paint();
-    private static Paint CIRCLE_BORDER_PAINT = new Paint();
-    private static Paint TEXT_PAINT = new Paint();
+    private Paint backgroundPaint = new Paint();
+    private Paint tickPaint = new Paint();
+    private Paint tickSecondsPaint = new Paint();
+    private Paint hourPaint = new Paint();
+    private Paint minutePaint = new Paint();
+    private Paint secondPaint = new Paint();
+    private Paint hourTickPaint = new Paint();
+    private Paint innerCirclePaint = new Paint();
+    private Paint circleBorderPaint = new Paint();
+    private Paint textPaint = new Paint();
 
     private static int PADDING = 7;
     private static int TICK_LENGTH = 7;
@@ -34,75 +33,74 @@ class ClockworkView extends AbstractClockworkView {
     private static float SECOND_LENGTH = 8/10f;
     private static float HOUR_LENGTH = 6/10f;
 
-    static {
-        BACKGROUND_PAINT.setARGB(255, 8, 8, 8);
+    private void initColors() {
+        backgroundPaint.setColor(backgroundColor);
 
-        INNER_CIRCLE_PAINT.setColor(Color.BLACK);
-        INNER_CIRCLE_PAINT.setAntiAlias(true);
-        INNER_CIRCLE_PAINT.setAlpha(100);
-        TICK_SECONDS_PAINT.setShadowLayer(5f, 1f, 1f, 0xFF000000);
+        innerCirclePaint.setColor(backgroundColor);
+        innerCirclePaint.setAntiAlias(true);
+        innerCirclePaint.setAlpha(100);
+        innerCirclePaint.setShadowLayer(5f, 1f, 1f, foregroundColor);
 
-        TICK_PAINT.setARGB(255, 100, 100, 100);
-        TICK_PAINT.setAntiAlias(true);
-        TICK_PAINT.setStrokeWidth(3f);
-        TICK_PAINT.setDither(true);
-        //TICK_PAINT.setStrokeCap(Paint.Cap.ROUND);
-        //TICK_PAINT.setPathEffect(new CornerPathEffect(0f));
-        TICK_PAINT.setStyle(Paint.Style.FILL_AND_STROKE);
-
-
-        TICK_SECONDS_PAINT.setARGB(255, 50, 80, 200);
-        TICK_SECONDS_PAINT.setAntiAlias(true);
-        TICK_SECONDS_PAINT.setStrokeWidth(8f);
-        //TICK_SECONDS_PAINT.setStrokeCap(Paint.Cap.ROUND);
-        //TICK_SECONDS_PAINT.setPathEffect(new CornerPathEffect(4f));
-        TICK_SECONDS_PAINT.setStyle(Paint.Style.FILL_AND_STROKE);
-
-        HOUR_PAINT.setARGB(255, 50, 80, 200);
-        HOUR_PAINT.setAntiAlias(true);
-        HOUR_PAINT.setStrokeWidth(7f);
-        HOUR_PAINT.setStrokeCap(Paint.Cap.ROUND);
-        //HOUR_PAINT.setPathEffect(new CornerPathEffect(2f));
-        HOUR_PAINT.setStyle(Paint.Style.FILL_AND_STROKE);
-        HOUR_PAINT.setShadowLayer(10f, 2f, 2f, Color.WHITE);
-
-        MINUTE_PAINT.setARGB(255, 255, 255, 255);
-        MINUTE_PAINT.setAntiAlias(true);
-        MINUTE_PAINT.setStrokeWidth(3f);
-        MINUTE_PAINT.setDither(true);
-        MINUTE_PAINT.setStrokeCap(Paint.Cap.ROUND);
-        //MINUTE_PAINT.setPathEffect(new CornerPathEffect(1f));
-        MINUTE_PAINT.setStyle(Paint.Style.FILL_AND_STROKE);
-        MINUTE_PAINT.setShadowLayer(20f, 4f, 4f, Color.WHITE);
+        tickPaint.setColor(foregroundColor);
+        tickPaint.setAntiAlias(true);
+        tickPaint.setStrokeWidth(3f);
+        tickPaint.setDither(true);
+        //tickPaint.setStrokeCap(Paint.Cap.ROUND);
+        //tickPaint.setPathEffect(new CornerPathEffect(0f));
+        tickPaint.setStyle(Paint.Style.FILL_AND_STROKE);
 
 
-        SECOND_PAINT.setARGB(255, 255, 255, 255);
-        SECOND_PAINT.setAntiAlias(true);
-        SECOND_PAINT.setStrokeWidth(2f);
-        SECOND_PAINT.setDither(true);
-        SECOND_PAINT.setStrokeCap(Paint.Cap.ROUND);
-        //MINUTE_PAINT.setPathEffect(new CornerPathEffect(1f));
-        SECOND_PAINT.setStyle(Paint.Style.FILL_AND_STROKE);
+        tickSecondsPaint.setColor(backgroundColor);
+        tickSecondsPaint.setAntiAlias(true);
+        tickSecondsPaint.setStrokeWidth(8f);
+        //tickSecondsPaint.setStrokeCap(Paint.Cap.ROUND);
+        //tickSecondsPaint.setPathEffect(new CornerPathEffect(4f));
+        tickSecondsPaint.setStyle(Paint.Style.FILL_AND_STROKE);
 
-        HOUR_TICK_PAINT.setARGB(255, 50, 80, 200);
-        HOUR_TICK_PAINT.setAntiAlias(true);
-        HOUR_TICK_PAINT.setStrokeWidth(4f);
-        HOUR_TICK_PAINT.setDither(true);
-        //HOUR_TICK_PAINT.setStrokeCap(Paint.Cap.ROUND);
-        HOUR_TICK_PAINT.setPathEffect(new CornerPathEffect(4f));
+        hourPaint.setColor(foregroundColor);
+        hourPaint.setAntiAlias(true);
+        hourPaint.setStrokeWidth(7f);
+        hourPaint.setStrokeCap(Paint.Cap.ROUND);
+        //hourPaint.setPathEffect(new CornerPathEffect(2f));
+        hourPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        hourPaint.setShadowLayer(10f, 2f, 2f, Color.WHITE);
 
-        TEXT_PAINT.setARGB(100, 255, 255, 255);
-        TEXT_PAINT.setAntiAlias(true);
-        TEXT_PAINT.setDither(true);
-        TEXT_PAINT.setTextSize(18f);
-        TEXT_PAINT.setTextAlign(Paint.Align.CENTER);
-        TEXT_PAINT.setFakeBoldText(true);
-        TEXT_PAINT.setShadowLayer(3f, 0f, 0f, 0xFF101010);
+        minutePaint.setColor(foregroundColor);
+        minutePaint.setAntiAlias(true);
+        minutePaint.setStrokeWidth(3f);
+        minutePaint.setDither(true);
+        minutePaint.setStrokeCap(Paint.Cap.ROUND);
+        //minutePaint.setPathEffect(new CornerPathEffect(1f));
+        minutePaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        minutePaint.setShadowLayer(20f, 4f, 4f, Color.WHITE);
 
-        CIRCLE_BORDER_PAINT.setARGB(255, 30, 30, 30);
-        CIRCLE_BORDER_PAINT.setStyle(Paint.Style.STROKE);
-        CIRCLE_BORDER_PAINT.setAntiAlias(true);
-        CIRCLE_BORDER_PAINT.setStrokeWidth(2f);
+
+        secondPaint.setColor(foregroundColor);
+        secondPaint.setAntiAlias(true);
+        secondPaint.setStrokeWidth(2f);
+        secondPaint.setDither(true);
+        secondPaint.setStrokeCap(Paint.Cap.ROUND);
+        //minutePaint.setPathEffect(new CornerPathEffect(1f));
+        secondPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+
+        hourTickPaint.setColor(foregroundColor);
+        hourTickPaint.setAntiAlias(true);
+        hourTickPaint.setStrokeWidth(7f);
+        hourTickPaint.setDither(true);
+
+        textPaint.setColor(foregroundColor);
+        textPaint.setAntiAlias(true);
+        textPaint.setDither(true);
+        textPaint.setTextSize(18f);
+        textPaint.setTextAlign(Paint.Align.CENTER);
+        textPaint.setFakeBoldText(true);
+        textPaint.setShadowLayer(3f, 0f, 0f, 0xFF101010);
+
+        circleBorderPaint.setColor(foregroundColor);
+        circleBorderPaint.setAlpha(100);
+        circleBorderPaint.setStyle(Paint.Style.STROKE);
+        circleBorderPaint.setAntiAlias(true);
+        circleBorderPaint.setStrokeWidth(2f);
     }
 
     private DateFormat dateFormat = new SimpleDateFormat("dd MMM");
@@ -110,21 +108,24 @@ class ClockworkView extends AbstractClockworkView {
     private ClockCanvas clockCanvas = new ClockCanvas();
 
     public ClockworkView(Context context) {
-    super(context);
+        super(context);
+        initColors();
     }
 
     public ClockworkView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        initColors();
     }
 
     public ClockworkView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        initColors();
     }
 
     private void loadFont() {
         try {
-            Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "fonts/prototype");
-            TEXT_PAINT.setTypeface(tf);
+            Typeface tf = Typeface.createFromAsset(getContext().getAssets(), font);
+            textPaint.setTypeface(tf);
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -142,7 +143,7 @@ class ClockworkView extends AbstractClockworkView {
         clockCanvas.c = c;
         clockCanvas.cal = cal;
 
-        c.drawRect(0f, 0f, getWidth(), getHeight(), BACKGROUND_PAINT);
+        c.drawRect(0f, 0f, getWidth(), getHeight(), backgroundPaint);
 
         int radius = this.getWidth() / 2;
         if (this.getHeight()<this.getWidth()) {
@@ -186,55 +187,62 @@ class ClockworkView extends AbstractClockworkView {
                         -(float) (cos * (radius - HOUR_TICK_LENGTH)),
                         (float) (sin * radius),
                         -(float) (cos * radius),
-                        HOUR_TICK_PAINT);
+                        hourTickPaint);
             }
 
             r = (second == min) ? radius * 3 : radius;
 
 
-            TICK_PAINT.setARGB(255, minTickColor, minTickColor, minTickColor);
 
-            int tailLength = 10;
-            int diff = ((millis%1000) * 60 / 1000) - min;
-            if (diff < 0) {
-                diff += 60;
-            }
-            if (diff >0 && diff <= tailLength) {
-                int color = minTickColor + (int) (-diff / (float)tailLength * (255 - minTickColor));
-                TICK_PAINT.setARGB(255, color, color, color);
-            }
+            if (!isDozing) {
+                tickPaint.setARGB(255, minTickColor, minTickColor, minTickColor);
 
-            c.drawLine(
-                (float) (sin * (radius - TICK_LENGTH)),
-                -(float) (cos * (radius - TICK_LENGTH)),
-                (float) (sin * r),
-                -(float) (cos * r),
-                second == min ? TICK_SECONDS_PAINT : TICK_PAINT
-            );
+                int tailLength = 10;
+                int diff = ((millis%1000) * 60 / 1000) - min;
+                if (diff < 0) {
+                    diff += 60;
+                }
+                if (diff >0 && diff <= tailLength) {
+                    int color = minTickColor + (int) (-diff / (float)tailLength * (255 - minTickColor));
+                    tickPaint.setARGB(255, color, color, color);
+                }
+
+
+                c.drawLine(
+                        (float) (sin * (radius - TICK_LENGTH)),
+                        -(float) (cos * (radius - TICK_LENGTH)),
+                        (float) (sin * r),
+                        -(float) (cos * r),
+                        second == min ? tickSecondsPaint : tickPaint
+                );
+            }
 
         }
 
         int tailSize = 20;
 
-        clockCanvas.drawHand(hour, 12, (int)(radius*HOUR_LENGTH), 0, HOUR_PAINT);
-        clockCanvas.drawHand(minute, 60, (int)(radius*MINUTE_LENGTH), tailSize, HOUR_PAINT);
-        clockCanvas.drawHand(second, 60, (int)(radius*SECOND_LENGTH), tailSize, SECOND_PAINT);
+        clockCanvas.drawHand(hour, 12, (int)(radius*HOUR_LENGTH), 0, hourPaint);
+        clockCanvas.drawHand(minute, 60, (int)(radius*MINUTE_LENGTH), tailSize, hourPaint);
 
-        c.drawCircle(0f, 0f, 10, SECOND_PAINT);
-        c.drawCircle(0f, 0f, 3, HOUR_PAINT);
+        if (!isDozing) {
+            clockCanvas.drawHand(second, 60, (int) (radius * SECOND_LENGTH), tailSize, secondPaint);
+        }
+
+        c.drawCircle(0f, 0f, 10, secondPaint);
+        c.drawCircle(0f, 0f, 3, hourPaint);
 
         c.restore();
 
         c.translate(centerX, this.getHeight()/4 * 3);
 
-        c.drawCircle(0f, 0f, radius / 4f, INNER_CIRCLE_PAINT);
-        c.drawCircle(0f, 0f, radius / 4f, CIRCLE_BORDER_PAINT);
+        c.drawCircle(0f, 0f, radius / 4f, innerCirclePaint);
+        c.drawCircle(0f, 0f, radius / 4f, circleBorderPaint);
 
         boolean drawText = false;
         if (drawText) {
-            c.drawText(hour + ":" + (minute < 10 ? "0" + minute : minute), 0f, 0f, TEXT_PAINT);
+            c.drawText(hour + ":" + (minute < 10 ? "0" + minute : minute), 0f, 0f, textPaint);
         }
-        c.drawText(dateFormat.format(cal.getTime()), 0f, 7f, TEXT_PAINT);
+        c.drawText(dateFormat.format(cal.getTime()), 0f, 7f, textPaint);
 
         c.restore();
 

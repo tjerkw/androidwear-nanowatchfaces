@@ -54,7 +54,7 @@
             android:allowEmbedded="true">
 
             <!-- Preview for when the user goes to change watchfaces -->
-            <meta-data android:name="com.google.android.clockwork.home.preview" android:resource="@drawable/clockwork_gradient_preview" />
+            <meta-data android:name="com.google.android.clockwork.home.preview" android:resource="@drawable/clockwork_digital_preview" />
             <!-- Intent filter to make the activity show up in the watchface choices -->
 
             <intent-filter>
@@ -62,7 +62,6 @@
                 <category android:name="com.google.android.clockwork.home.category.HOME_BACKGROUND" />
             </intent-filter>
         </activity>
-
 
         <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
     </application>
