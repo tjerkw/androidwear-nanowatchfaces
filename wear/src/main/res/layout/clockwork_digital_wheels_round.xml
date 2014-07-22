@@ -12,5 +12,5 @@
         android:layout_height="match_parent"
         tjerkw:foreground_color="0xFFFFFFFF"
         tjerkw:background_color="0x22FFFFFF"
-        tjerkw:font="fonts/highland_gothic_medium.ttf"/>
+        tjerkw:ternary_color="0x12000000"/>
 </LinearLayout>

@@ -22,6 +22,8 @@ class AbstractClockworkView extends View {
 
     protected int backgroundColor = 0xFF000000;
     protected int foregroundColor = 0xFFFFFFFF;
+    protected int secondaryColor = 0xAAFFFFFF;
+    protected int ternaryColor = 0xAAFFFFFF;
     protected String font = null;
 
     private void log(String msg) {
@@ -45,6 +47,8 @@ class AbstractClockworkView extends View {
     private void init(AttributeSet attrs) {
         foregroundColor = attrs.getAttributeIntValue(NAMESPACE, "foreground_color", foregroundColor);
         backgroundColor = attrs.getAttributeIntValue(NAMESPACE, "background_color", backgroundColor);
+        secondaryColor = attrs.getAttributeIntValue(NAMESPACE, "secondary_color", secondaryColor);
+        ternaryColor = attrs.getAttributeIntValue(NAMESPACE, "ternary_color", ternaryColor);
         font = attrs.getAttributeValue(NAMESPACE, "font");
     }
 

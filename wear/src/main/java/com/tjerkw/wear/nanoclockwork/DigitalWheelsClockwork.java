@@ -23,6 +23,7 @@ public class DigitalWheelsClockwork extends AbstractClockworkView {
     private Paint textPaintSeconds = new Paint();
     private Paint textPaintActive = new Paint();
     private Paint textDatePaint = new Paint();
+    private int textDateAlpha;
 
     private Matrix matrix = new Matrix();
     private Camera camera = new Camera();
@@ -57,7 +58,7 @@ public class DigitalWheelsClockwork extends AbstractClockworkView {
 
         //textPaint.setTextAlign(Paint.Align.CENTER);
         textPaint.setColor(foregroundColor);
-        textPaint.setAlpha(210);
+        textPaint.setAlpha(220);
         textPaint.setSubpixelText(true);
         textPaint.setAntiAlias(true);
         textPaint.setStyle(Paint.Style.FILL_AND_STROKE);
@@ -72,23 +73,22 @@ public class DigitalWheelsClockwork extends AbstractClockworkView {
         textPaintActive.setFakeBoldText(true);
         textPaintActive.setShadowLayer(10f, 0f, 0f, 0xFF000000);
 
-        textPaintSeconds.setColor(foregroundColor);
-        textPaintSeconds.setAlpha(135);
+        textPaintSeconds.setColor(ternaryColor);
         textPaintSeconds.setAntiAlias(true);
         textPaintSeconds.setStyle(Paint.Style.FILL_AND_STROKE);
         textPaintSeconds.setTextAlign(Paint.Align.CENTER);
         textPaintSeconds.setShadowLayer(10f, 0f, 0f, 0xCF000000);
 
         textDatePaint.setTextAlign(Paint.Align.CENTER);
-        textDatePaint.setColor(foregroundColor);
-        textDatePaint.setAlpha(255);
+        textDatePaint.setColor(secondaryColor);
+        textDateAlpha = textDatePaint.getAlpha();
         textDatePaint.setSubpixelText(true);
         textDatePaint.setAntiAlias(true);
         textDatePaint.setStyle(Paint.Style.FILL);
         textDatePaint.setTextAlign(Paint.Align.CENTER);
-        textDatePaint.setTextSize(15f);
+        textDatePaint.setTextSize(16f);
         textDatePaint.setFakeBoldText(true);
-        textPaintSeconds.setShadowLayer(5f, 0f, 0f, 0xCF000000);
+        textDatePaint.setShadowLayer(5f, 0f, 0f, ternaryColor);
 
     }
 
@@ -161,7 +161,7 @@ public class DigitalWheelsClockwork extends AbstractClockworkView {
         c.drawRect(0f, 0f, getWidth(), getHeight(), background);
 
         Calendar cal = Calendar.getInstance();
-        int hour = cal.get(Calendar.HOUR);
+        int hour = cal.get(Calendar.HOUR_OF_DAY);
         int minute = cal.get(Calendar.MINUTE);
         int second = cal.get(Calendar.SECOND);
         int millis = cal.get(Calendar.MILLISECOND);
@@ -229,7 +229,7 @@ public class DigitalWheelsClockwork extends AbstractClockworkView {
         // draw the wheel gradient on top
         c.drawRect(0f, 0f, getWidth(), getHeight(), wheelGradient);
 
-        textDatePaint.setAlpha((int) dozeInterpolate(255f, 0f));
+        textDatePaint.setAlpha((int) dozeInterpolate(textDateAlpha, 0f));
         c.drawText(dateFormat.format(cal.getTime()).toUpperCase(), getWidth()/2, getHeight() - 13, textDatePaint);
 
 

@@ -12,7 +12,7 @@ public class ClockCanvas {
     public Canvas c;
     public Calendar cal;
 
-    public void drawHand(int value, int maxInCircle, int frontLength, int tailLength, Paint p) {
+    public void drawHand(float value, int maxInCircle, int frontLength, int tailLength, Paint p) {
         double radial = 2*Math.PI / (float) maxInCircle * value;
         double cos = Math.cos(radial);
         double sin = Math.sin(radial);

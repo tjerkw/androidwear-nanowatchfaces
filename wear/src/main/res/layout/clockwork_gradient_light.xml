@@ -13,9 +13,9 @@
         android:id="@+id/clockwork"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        tjerkw:foreground_color="0xFFFA0A0FF"
-        tjerkw:background_color="0xFF0000AA"
-        tjerkw:secondary_color="0xFFFFFFFF"
-        tjerkw:ternary_color="0xFFFFFFFF"
+        tjerkw:foreground_color="0xFF000000"
+        tjerkw:background_color="0x00E0E0E0"
+        tjerkw:secondary_color="0xFF000000"
+        tjerkw:ternary_color="0xFFFFFF00"
         />
 </RelativeLayout>

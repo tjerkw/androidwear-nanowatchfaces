@@ -57,7 +57,7 @@ class ClockworkView extends AbstractClockworkView {
         //tickSecondsPaint.setPathEffect(new CornerPathEffect(4f));
         tickSecondsPaint.setStyle(Paint.Style.FILL_AND_STROKE);
 
-        hourPaint.setColor(foregroundColor);
+        hourPaint.setColor(secondaryColor);
         hourPaint.setAntiAlias(true);
         hourPaint.setStrokeWidth(7f);
         hourPaint.setStrokeCap(Paint.Cap.ROUND);
@@ -75,7 +75,7 @@ class ClockworkView extends AbstractClockworkView {
         minutePaint.setShadowLayer(20f, 4f, 4f, Color.WHITE);
 
 
-        secondPaint.setColor(foregroundColor);
+        secondPaint.setColor(ternaryColor);
         secondPaint.setAntiAlias(true);
         secondPaint.setStrokeWidth(2f);
         secondPaint.setDither(true);
@@ -83,7 +83,7 @@ class ClockworkView extends AbstractClockworkView {
         //minutePaint.setPathEffect(new CornerPathEffect(1f));
         secondPaint.setStyle(Paint.Style.FILL_AND_STROKE);
 
-        hourTickPaint.setColor(foregroundColor);
+        hourTickPaint.setColor(ternaryColor);
         hourTickPaint.setAntiAlias(true);
         hourTickPaint.setStrokeWidth(7f);
         hourTickPaint.setDither(true);
@@ -96,7 +96,7 @@ class ClockworkView extends AbstractClockworkView {
         textPaint.setFakeBoldText(true);
         textPaint.setShadowLayer(3f, 0f, 0f, 0xFF101010);
 
-        circleBorderPaint.setColor(foregroundColor);
+        circleBorderPaint.setColor(ternaryColor);
         circleBorderPaint.setAlpha(100);
         circleBorderPaint.setStyle(Paint.Style.STROKE);
         circleBorderPaint.setAntiAlias(true);
@@ -161,7 +161,7 @@ class ClockworkView extends AbstractClockworkView {
         int millis = cal.get(Calendar.MILLISECOND);
         int second = cal.get(Calendar.SECOND);
         int minute = cal.get(Calendar.MINUTE);
-        int hour = cal.get(Calendar.HOUR);
+        int hour = cal.get(Calendar.HOUR_OF_DAY);
 
         //log(hour + ":" + minute + ":" + second);
 
@@ -221,7 +221,7 @@ class ClockworkView extends AbstractClockworkView {
 
         int tailSize = 20;
 
-        clockCanvas.drawHand(hour, 12, (int)(radius*HOUR_LENGTH), 0, hourPaint);
+        clockCanvas.drawHand(hour + (minute / 60f), 12, (int)(radius*HOUR_LENGTH), 0, hourPaint);
         clockCanvas.drawHand(minute, 60, (int)(radius*MINUTE_LENGTH), tailSize, hourPaint);
 
         if (!isDozing) {

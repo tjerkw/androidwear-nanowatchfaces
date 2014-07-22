@@ -1,8 +1,11 @@
 package com.tjerkw.wear.nanoclockwork;
 
+import java.util.Random;
+
 public class DigitalWheelsClockworkActivity extends AbstractClockworkActivity {
 
     protected int getLayoutResId() {
-            return R.layout.clockwork_digital_wheels;
-        }
+        Random r = new Random();
+        return r.nextBoolean() ? R.layout.clockwork_digital_wheels : R.layout.clockwork_digital_wheels_light;
+    }
 }

@@ -22,7 +22,6 @@ class GradientClockworkView extends AbstractClockworkView {
         dozingBackgroundPaint.setARGB(255, 0, 0, 0);
 
         hourPaint.setColor(foregroundColor);
-        hourPaint.setARGB(255, 50, 80, 200);
         hourPaint.setAntiAlias(true);
         hourPaint.setStrokeWidth(7f);
         //hourPaint.setStrokeCap(Paint.Cap.ROUND);
@@ -31,7 +30,7 @@ class GradientClockworkView extends AbstractClockworkView {
         hourPaint.setDither(true);
         hourPaint.setShadowLayer(10f, 5f, 5f, Color.WHITE);
 
-        minutePaint.setARGB(255, 255, 255, 255);
+        minutePaint.setColor(secondaryColor);
         minutePaint.setAntiAlias(true);
         minutePaint.setStrokeWidth(3f);
         minutePaint.setDither(true);
@@ -41,7 +40,8 @@ class GradientClockworkView extends AbstractClockworkView {
         minutePaint.setShadowLayer(20f, 0f, 0f, Color.WHITE);
 
 
-        secondPaint.setARGB(255, 0, 0, 0);
+        secondPaint.setColor(secondaryColor);
+        secondPaint.setAlpha(100);
         secondPaint.setAntiAlias(true);
         secondPaint.setStrokeWidth(3f);
         secondPaint.setDither(true);
@@ -49,7 +49,7 @@ class GradientClockworkView extends AbstractClockworkView {
         //minutePaint.setPathEffect(new CornerPathEffect(1f));
         secondPaint.setStyle(Paint.Style.FILL_AND_STROKE);
 
-        tickPaint.setColor(foregroundColor);
+        tickPaint.setColor(ternaryColor);
         tickPaint.setAntiAlias(true);
         tickPaint.setStrokeWidth(4f);
         tickPaint.setDither(true);
@@ -103,11 +103,17 @@ class GradientClockworkView extends AbstractClockworkView {
         c.save();
         c.translate(centerX, centerY);
 
-        clockCanvas.drawHand(cal.get(Calendar.MINUTE), 60, radius - 27, 25, minutePaint);
-        clockCanvas.drawHand(cal.get(Calendar.HOUR), 12, (int)(radius/1.8f), 5, hourPaint);
+        int minute = cal.get(Calendar.MINUTE);
+        int second = cal.get(Calendar.SECOND);
+        int hour = cal.get(Calendar.HOUR_OF_DAY);
+
+        int millis = cal.get(Calendar.MILLISECOND);
+
+        clockCanvas.drawHand(minute + second / 60f, 60, radius - 27, 25, minutePaint);
+        clockCanvas.drawHand(hour + minute / 60f, 12, (int)(radius/1.8f), 5, hourPaint);
 
         if (!isDozing) {
-            clockCanvas.drawHand(cal.get(Calendar.SECOND), 60, radius - 20, 5, secondPaint);
+            clockCanvas.drawHand(second + (millis / 1000f), 60, radius - 20, 5, secondPaint);
 
             // draw the ticks
             c.drawLine(-3f, -radius, -3f, -radius + 6, tickPaint);

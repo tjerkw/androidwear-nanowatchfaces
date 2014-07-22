@@ -10,8 +10,8 @@
         android:id="@+id/clockwork"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tjerkw:foreground_color="0xFFFFFFFF"
-        tjerkw:background_color="0x22FFFFFF"
-        tjerkw:secondary_color="0x9AFFFFFF"
-        tjerkw:ternary_color="0x12000000"/>
+        tjerkw:foreground_color="0xFF000000"
+        tjerkw:background_color="0xFFFFFFFF"
+        tjerkw:secondary_color="0xBBFFFFFF"
+        tjerkw:ternary_color="0xFFFFFFFF"/>
 </LinearLayout>
